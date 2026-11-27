@@ -52,6 +52,8 @@ Each prompt you send replaces the label with its first non-empty line, except:
 
 The first prompt of a session always counts, so a new tab is labelled right away. Change the threshold with `CLAUDE_TAB_LABEL_MIN_CHARS` (for example `4` if you write short Korean or Chinese prompts).
 
+Set `CLAUDE_TAB_LABEL_SHOW_DIR=1` to put the project folder in front of the label, e.g. `🟩 api · fix refund rounding test`, so tabs from different repos stay apart. The label is shortened to keep the whole title within 30 characters. The status line is unchanged.
+
 To give a session a fixed name of your own, use Claude Code's built-in `/rename <name>`. It shows up in bold in the status line next to the latest prompt.
 
 ## How it works
@@ -68,9 +70,9 @@ It can run alongside [claude-gh-guard](https://github.com/seuthootDev/claude-gh-
 ## Troubleshooting
 
 - **The tab title switches back to Claude Code's own title.** Start Claude Code with `CLAUDE_CODE_DISABLE_TERMINAL_TITLE=1` so it stops updating the title itself.
-- **The coloured square shows as a blank box or ? in the tab title.** Set `CLAUDE_TAB_LABEL_ASCII=1` to use a plain-text tag (`[G]`, `[B]`, ...) instead of the emoji badge, in the tab title and the status line. The status line keeps its ANSI colour.
+- **The coloured square shows as a blank box or ? in the tab title.** Set `CLAUDE_TAB_LABEL_ASCII=1` to use a plain-text tag (`[G]`, `[B]`, …) instead of the emoji badge, in the tab title and the status line. The status line keeps its ANSI colour.
 - **No title change inside tmux or over SSH.** Those may drop title sequences, depending on their configuration (for tmux, `set -g set-titles on`).
-- **`claude -p` and the Agent SDK.** Claude Code ignores `terminalSequence` outside interactive sessions, so only the status file is updated.
+- **\`claude -p\` and the Agent SDK.** Claude Code ignores `terminalSequence` outside interactive sessions, so only the status file is updated.
 
 ## Privacy
 
