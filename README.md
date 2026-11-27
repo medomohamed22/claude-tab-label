@@ -70,9 +70,9 @@ It can run alongside [claude-gh-guard](https://github.com/seuthootDev/claude-gh-
 ## Troubleshooting
 
 - **The tab title switches back to Claude Code's own title.** Start Claude Code with `CLAUDE_CODE_DISABLE_TERMINAL_TITLE=1` so it stops updating the title itself.
-- **The coloured square shows as a blank box or ? in the tab title.** Set `CLAUDE_TAB_LABEL_ASCII=1` to use a plain-text tag (`[G]`, `[B]`, …) instead of the emoji badge, in the tab title and the status line. The status line keeps its ANSI colour.
+- **The coloured square shows as a blank box or ? in the tab title.** Set `CLAUDE_TAB_LABEL_ASCII=1` to use a plain-text tag (`[G]`, `[B]`, ...) instead of the emoji badge, in the tab title and the status line. The status line keeps its ANSI colour.
 - **No title change inside tmux or over SSH.** Those may drop title sequences, depending on their configuration (for tmux, `set -g set-titles on`).
-- **\`claude -p\` and the Agent SDK.** Claude Code ignores `terminalSequence` outside interactive sessions, so only the status file is updated.
+- **`claude -p` and the Agent SDK.** Claude Code ignores `terminalSequence` outside interactive sessions, so only the status file is updated.
 
 ## Privacy
 
