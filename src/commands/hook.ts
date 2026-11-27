@@ -37,6 +37,7 @@ export function runHook(stdin: string, d: Deps): string {
   const id = input.session_id;
   if (!validSessionId(id)) return "";
   const prev = loadState(d, id);
+  
   let label: string | null = null;
   if (input.hook_event_name === "UserPromptSubmit") {
     const prompt = typeof input.prompt === "string" ? input.prompt : "";
