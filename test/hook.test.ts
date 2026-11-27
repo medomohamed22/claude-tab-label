@@ -75,3 +75,16 @@ test("old session files are pruned", () => {
   assert.equal(loadState(d, "old"), null);
   assert.ok(loadState(d, "s1"));
 });
+
+test("CLAUDE_TAB_LABEL_ASCII=1 uses a text tag instead of the emoji", () => {
+  const d = fakeDeps({ env: { CLAUDE_TAB_LABEL_ASCII: "1" } });
+  const out = runHook(prompt("s1", "fix refund rounding test"), d);
+  assert.ok(seq(out).includes(badge("s1").ascii));
+  assert.ok(!seq(out).includes(badge("s1").emoji));
+});
+
+test("titleSequence uses the ascii tag when asked", () => {
+  const out = titleSequence("s1", "fix refund rounding test", true);
+  assert.ok(out.includes(badge("s1").ascii));
+  assert.ok(!out.includes(badge("s1").emoji));
+});

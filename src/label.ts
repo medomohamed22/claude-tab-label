@@ -1,14 +1,14 @@
 /** Pure helpers: the per-session badge and the text that goes into titles. */
 
-const BADGES: { emoji: string; ansi: number }[] = [
-  { emoji: "🟥", ansi: 196 },
-  { emoji: "🟧", ansi: 208 },
-  { emoji: "🟨", ansi: 220 },
-  { emoji: "🟩", ansi: 41 },
-  { emoji: "🟦", ansi: 33 },
-  { emoji: "🟪", ansi: 135 },
-  { emoji: "🟫", ansi: 137 },
-  { emoji: "⬜", ansi: 252 },
+const BADGES: { emoji: string; ascii: string; ansi: number }[] = [
+  { emoji: "🟥", ascii: "[R]", ansi: 196 },
+  { emoji: "🟧", ascii: "[O]", ansi: 208 },
+  { emoji: "🟨", ascii: "[Y]", ansi: 220 },
+  { emoji: "🟩", ascii: "[G]", ansi: 41 },
+  { emoji: "🟦", ascii: "[B]", ansi: 33 },
+  { emoji: "🟪", ascii: "[P]", ansi: 135 },
+  { emoji: "🟫", ascii: "[N]", ansi: 137 },
+  { emoji: "⬜", ascii: "[W]", ansi: 252 },
 ];
 
 /** FNV-1a, so the same session id always gets the same badge. */
@@ -21,7 +21,7 @@ function hash(s: string): number {
   return h;
 }
 
-export function badge(sessionId: string): { emoji: string; ansi: number } {
+export function badge(sessionId: string): { emoji: string; ascii: string; ansi: number } {
   return BADGES[hash(sessionId) % BADGES.length]!;
 }
 

@@ -19,6 +19,24 @@ test("shows just the badge before the first prompt", () => {
   assert.equal(out, badge("s1").emoji);
 });
 
+test("CLAUDE_TAB_LABEL_ASCII=1 shows a text tag instead of the emoji", () => {
+  const d = fakeDeps({ env: { ...noColor, CLAUDE_TAB_LABEL_ASCII: "1" } });
+  saveState(d, "s1", { label: "fix refund rounding" });
+  const out = runStatusline(JSON.stringify({ session_id: "s1", session_name: "payments" }), [], d);
+  assert.ok(out.startsWith(badge("s1").ascii + " "));
+  assert.ok(out.includes("payments"));
+  assert.ok(out.includes("fix refund rounding"));
+  assert.ok(!out.includes(badge("s1").emoji));
+});
+
+test("CLAUDE_TAB_LABEL_ASCII=1 keeps the badge colour in the status line", () => {
+  const d = fakeDeps({ env: { CLAUDE_TAB_LABEL_ASCII: "1" } });
+  saveState(d, "s1", { label: "task" });
+  const out = runStatusline(JSON.stringify({ session_id: "s1", session_name: "payments" }), [], d);
+  assert.ok(out.startsWith(badge("s1").ascii));
+  assert.ok(out.includes("38;5;" + badge("s1").ansi + "m"));
+});
+
 test("colours use the session's badge colour", () => {
   const d = fakeDeps();
   saveState(d, "s1", { label: "task" });

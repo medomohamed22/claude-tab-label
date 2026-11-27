@@ -5,8 +5,8 @@ import { loadState, pruneStates, saveState, validSessionId } from "../state.ts";
 export const TITLE_CHARS = 30;
 
 /** OSC 0 sets the tab and window title; Claude Code only accepts it via the `terminalSequence` field. */
-export function titleSequence(sessionId: string, label: string): string {
-  return `\x1b]0;${badge(sessionId).emoji} ${shorten(clean(label), TITLE_CHARS)}\x07`;
+export function titleSequence(sessionId: string, label: string, ascii = false): string {
+  return `\x1b]0;${ascii ? badge(sessionId).ascii : badge(sessionId).emoji} ${shorten(clean(label), TITLE_CHARS)}\x07`;
 }
 
 function minChars(d: Deps): number {
@@ -45,5 +45,5 @@ export function runHook(stdin: string, d: Deps): string {
   }
   // Short replies and resumed sessions re-send the label we already have, in case something reset the title.
   label ??= prev?.label ?? null;
-  return label ? JSON.stringify({ terminalSequence: titleSequence(id, label) }) : "";
+  return label ? JSON.stringify({ terminalSequence: titleSequence(id, label, d.env.CLAUDE_TAB_LABEL_ASCII === "1") }) : "";
 }

@@ -42,12 +42,14 @@ It relies on Claude Code hooks (`terminalSequence`) and the status line, so it d
 - Short replies (under 6 characters, e.g. `ok`, `ㅇㅇ`, `계속해`) and slash commands keep the current label.
 - The first prompt of a session always counts.
 - `CLAUDE_TAB_LABEL_MIN_CHARS=<n>` changes the threshold.
+- `CLAUDE_TAB_LABEL_ASCII=1` uses a plain-text tag (e.g. `[G]`) instead of the coloured-square emoji, for terminals that cannot show emoji. The status line keeps its ANSI colour.
 - For a fixed name, the user can run Claude Code's built-in `/rename <name>`. It appears in bold in the status line.
 
 ## Troubleshooting
 
 | Symptom | Cause and fix |
 |---|---|
+| The coloured square shows as a blank box or `?` in the tab title. | Set `CLAUDE_TAB_LABEL_ASCII=1` to use a plain-text tag (`[G]`, `[B]`, ...) instead of the emoji. |
 | Tab title switches back to Claude Code's own title | Start Claude Code with `CLAUDE_CODE_DISABLE_TERMINAL_TITLE=1`. |
 | No title change in tmux or over SSH | They may drop title sequences. For tmux, `set -g set-titles on`. |
 | Nothing changes at all | Claude Code was not restarted after `init`, or the session is non-interactive (`claude -p`, Agent SDK), where `terminalSequence` is ignored. |

@@ -13,7 +13,8 @@ export function ourLine(stdin: string, d: Deps, color: boolean): string {
     // no input: show just the badge
   }
   const id = validSessionId(input.session_id) ? input.session_id : "";
-  const { emoji, ansi } = badge(id);
+  const { emoji, ascii, ansi } = badge(id);
+  const tag = d.env.CLAUDE_TAB_LABEL_ASCII === "1" ? ascii : emoji;
   const paint = (s: string, style: string) => (color ? `\x1b[${style}m${s}\x1b[0m` : s);
 
   const parts: string[] = [];
@@ -21,7 +22,7 @@ export function ourLine(stdin: string, d: Deps, color: boolean): string {
   if (name) parts.push(paint(shorten(name, 30), `1;38;5;${ansi}`));
   const label = id ? loadState(d, id)?.label : undefined;
   if (label) parts.push(paint(`"${shorten(clean(label), STATUS_CHARS)}"`, `38;5;${ansi}`));
-  return parts.length ? `${emoji} ${parts.join(paint(" · ", "2"))}` : emoji;
+  return parts.length ? `${tag} ${parts.join(paint(" · ", "2"))}` : tag;
 }
 
 // A bare "bash" on Windows can be WSL's System32 launcher, so only trust it under Git Bash itself.
