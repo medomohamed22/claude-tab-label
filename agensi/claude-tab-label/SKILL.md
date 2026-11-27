@@ -54,7 +54,7 @@ It relies on Claude Code hooks (`terminalSequence`) and the status line, so it d
 | Tab title switches back to Claude Code's own title | Start Claude Code with `CLAUDE_CODE_DISABLE_TERMINAL_TITLE=1`. |
 | No title change in tmux or over SSH | They may drop title sequences. For tmux, `set -g set-titles on`. |
 | Nothing changes at all | Claude Code was not restarted after `init`, or the session is non-interactive (`claude -p`, Agent SDK), where `terminalSequence` is ignored. |
-| The old status line disappeared | It should run underneath. Check that `statusLine.command` in `settings.json` ends with `--after '<original command>'`. |
+| The old status line disappeared | It should run underneath. Check that `statusLine.command` in settings.json ends with `--after '<original command>'`. |
 
 Labels are stored in `~/.claude-tab-label/sessions/` (first line of the latest qualifying prompt only) and deleted after 14 days. Nothing leaves the machine.
 
